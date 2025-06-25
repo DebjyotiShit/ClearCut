@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+
+  mongo:
+    build: ./Database
+    container_name: clearcut-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - clearcut-app-network
+
+  backend:
+    build: ./server
+    container_name: clearcut-backend
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"
+    networks:
+      - clearcut-app-network
+  
+
+  frontend:
+    build: ./client
+    container_name: clearcut-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - clearcut-app-network 
+
+
+networks:
+  clearcut-app-network:
+    driver: bridge
+volumes:
+  mongo_data:
+    driver: local
