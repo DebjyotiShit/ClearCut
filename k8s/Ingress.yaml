@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: clearcut-frontend-ingress
+  namespace: clearcut
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"  
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: clearcut.com
+      http:
+        paths:
+          - path: /assets/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: clearcut-frontend-service
+                port:
+                  number: 80
+          - path: /(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: clearcut-frontend-service
+                port:
+                  number: 80
