@@ -26,7 +26,7 @@ spec:
         runAsUser: 1000
       containers:
         - name: clearcut-backend-container 
-          image: debjyoti08/clearcut_server:v1.1.5st
+          image: debjyoti08/clearcut_server:v1.4.9
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4000
