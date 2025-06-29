@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: debjyoti08/mongodb:v1.0.5st
+          image: debjyoti08/mongodb:v1.1.5st
           ports:
             - containerPort: 27017
           volumeMounts:
